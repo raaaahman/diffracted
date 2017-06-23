@@ -1,7 +1,9 @@
+//Library dependencies
 import 'pixi'
 import 'p2'
 import 'phaser'
 
+//Game states
 import Boot from './states/Boot'
 import Preloader from './states/Preloader'
 import TitleScreen from './states/TitleScreen'
