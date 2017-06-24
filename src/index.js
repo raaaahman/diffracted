@@ -12,9 +12,15 @@ import GameOver from './states/GameOver'
 
 class Game extends Phaser.Game {
 
+
 	constructor () {
 
 		super(600, 400, Phaser.AUTO)
+
+		this.gui
+		this.player
+		this.level
+		this.controls
 
 		this.state.add('boot', Boot)
 		this.state.add('preloader', Preloader)
@@ -26,4 +32,4 @@ class Game extends Phaser.Game {
 	}
 }
 
-var game = new Game();
+var game = new Game()
