@@ -3,29 +3,56 @@
 
 class GUI {
 
-	constructor (game, x, y, buttons, btnWidth, btnHeight, offsetX, offsetY, display, UIstyle) {
+	constructor (
+		game,
+		x,
+		y,
+		buttons,
+		btnWidth = 90,
+		btnHeight = 25,
+		gutter = 10,
+		offsetX = 10,
+		offsetY = 10,
+		display = "horizontal",
+		UIstyle = {	font: '16px Arial',	fill: '#fff' }
+	) {
 
-		this.x = x
-		this.y = y
-		this.btnWidth = btnWidth | 90
-		this.btnHeight = btnHeight | 25
-		this.offsetX = offsetX | 10
-		this.offsetY = offsetY | 10
-		this.style = UIstyle
+		//Set UI as a group
+		let gui = game.add.group()
+
+		gui.x = x
+		gui.y = y
+
+		gui.fixedToCamera = true
 
 		for (let i = 0; i < buttons.length; i++) {
 
 			if (display == "vertical") {
-				var btnPosX = this.x + this.offsetX
-				var btnPosY = this.y + (i * this.btnHeight) + this.offsetY
+				var btnPosX = gui.x + offsetX
+				var btnPosY = gui.y + (i * btnHeight) + offsetY
+
+				//Add a gutter to separate from next button
+				offsetY += gutter
+
 			} else {
-				var btnPosX = this.x + (i * this.btnWidth) + this.offsetX
-				var btnPosY = this.y + this.offsetY
+				var btnPosX = gui.x + (i * btnWidth) + offsetX
+				var btnPosY = gui.y + offsetY
+
+				//Add a gutter to separate from next button
+				offsetX += gutter;
 			}
 
-			let button = game.add.button(btnPosX, btnPosY, 'button', buttons[i].fn)
+			let button = game.add.button(btnPosX, btnPosY, 'button', buttons[i].fn, game, 1, 0, 2, 3)
 
-			let label = game.add.text(6, 2, buttons[i].label, this.style )
+			if ( buttons[i].sound ) {
+				button.setDownSound(
+					game.add.audio(buttons[i].sound)
+				)
+			}
+
+			gui.addChild(button)
+
+			let label = game.add.text(6, 2, buttons[i].label, UIstyle )
 
 			button.addChild(label)
 

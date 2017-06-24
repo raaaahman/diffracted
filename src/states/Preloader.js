@@ -11,6 +11,8 @@ class Preloader extends Phaser.State {
 
 		//UI resources
 		this.load.spritesheet('button', '/assets/img/button.png', 90, 25)
+
+		this.load.audio('click', '/assets/sounds/click4.ogg')
 	}
 
 	create () {
