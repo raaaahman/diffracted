@@ -17,6 +17,13 @@ class Preloader extends Phaser.State {
 		this.load.audio('click', '/assets/sounds/click4.ogg')
 		this.load.audio('start', '/assets/sounds/message.ogg')
 		this.load.audio('reset', '/assets/sounds/dustbin.ogg')
+
+		//GAME sprites and tilesets
+		this.load.image('tileset', '/assets/img/tileset.png')
+
+		//GAME data
+		this.load.tilemap('map', '/assets/levels/level0.json', null, Phaser.Tilemap.TILED_JSON)
+
 	}
 
 	create () {
