@@ -14,7 +14,8 @@ class GUI {
 		offsetX = 10,
 		offsetY = 10,
 		display = "horizontal",
-		UIstyle = {	font: '16px Arial',	fill: '#fff' }
+		UIstyle = {	font: '16px Arial',	fill: '#fff' },
+		defaultSound
 	) {
 
 		//Set UI as a group
@@ -44,9 +45,15 @@ class GUI {
 
 			let button = game.add.button(btnPosX, btnPosY, 'button', buttons[i].fn, game, 1, 0, 2, 3)
 
+			//Search if buttons has a specific sound
+			//Else use the default one for the menu (or no sound at all)
 			if ( buttons[i].sound ) {
 				button.setDownSound(
 					game.add.audio(buttons[i].sound)
+				)
+			} else if ( defaultSound ) {
+				button.setDownSound(
+					game.add.audio(defaultSound)
 				)
 			}
 

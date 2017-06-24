@@ -8,7 +8,7 @@ class TitleScreen extends Phaser.State {
 			{ label: 'Double', fn: this.buttonClick }
 		]
 
-		new GUI (this, 20, 20, buttons, 90, 25, 10, 10, 10, "horizontal" )
+		new GUI (this, 20, 20, buttons, 90, 25, 10, 10, 10, 'horizontal', {	font: '16px Arial',	fill: '#fff' }, 'click' )
 	}
 
 	buttonClick () {
