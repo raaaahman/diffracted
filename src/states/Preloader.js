@@ -7,12 +7,16 @@ class Preloader extends Phaser.State {
 
 		this.preloader.anchor.setTo(0.5, 0.5)
 
+		this.stage.setBackgroundColor('#458')
+
 		this.load.setPreloadSprite(this.preloader)
 
 		//UI resources
 		this.load.spritesheet('button', '/assets/img/button.png', 90, 25)
 
 		this.load.audio('click', '/assets/sounds/click4.ogg')
+		this.load.audio('start', '/assets/sounds/message.ogg')
+		this.load.audio('reset', '/assets/sounds/dustbin.ogg')
 	}
 
 	create () {

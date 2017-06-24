@@ -3,16 +3,16 @@ import GUI from '../classes/GUI.js'
 class TitleScreen extends Phaser.State {
 
 	create () {
+
 		let buttons = [
-			{	label: 'Dummy',	fn: this.buttonClick, sound: 'click' },
-			{ label: 'Double', fn: this.buttonClick }
+			{	label: 'Start Game',	fn: this.startGame, sound: 'start' }
 		]
 
-		new GUI (this, 20, 20, buttons, 90, 25, 10, 10, 10, 'horizontal', {	font: '16px Arial',	fill: '#fff' }, 'click' )
+		new GUI (this, this.world.centerX - 55, this.world.centerY - 12 , buttons, 90, 25, 10, 10, 10, 'vertical', {	font: '16px Arial',	fill: '#fff' }, 'click' )
 	}
 
-	buttonClick () {
-		console.log('Clicked')
+	startGame() {
+		this.state.start('main')
 	}
 }
 

@@ -13,7 +13,7 @@ class GUI {
 		gutter = 10,
 		offsetX = 10,
 		offsetY = 10,
-		display = "horizontal",
+		display = 'horizontal',
 		UIstyle = {	font: '16px Arial',	fill: '#fff' },
 		defaultSound
 	) {
@@ -28,7 +28,7 @@ class GUI {
 
 		for (let i = 0; i < buttons.length; i++) {
 
-			if (display == "vertical") {
+			if (display == 'vertical') {
 				var btnPosX = gui.x + offsetX
 				var btnPosY = gui.y + (i * btnHeight) + offsetY
 
