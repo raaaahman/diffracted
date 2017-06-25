@@ -31,8 +31,16 @@ class Main extends Phaser.State {
 
 	update () {
 
-		if (this.controls.up.isDown) { this.player.move() }
+		if (this.controls.up.isDown) { this.player.setDir('up') }
+		if (this.controls.down.isDown) { this.player.setDir('down') }
+		if (this.controls.left.isDown) { this.player.setDir('left') }
+		if (this.controls.right.isDown) { this.player.setDir('right') }
 
+		if (this.player.isMoving) {
+			this.player.move()
+		} else {
+			this.player.sprite.animations.stop()
+		}
 	}
 
 	//State transition functions
