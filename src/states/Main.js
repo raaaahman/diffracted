@@ -1,6 +1,7 @@
 import GUI from '../classes/GUI.js'
 import Level from '../classes/Level.js'
 import Player from '../classes/Player.js'
+import Controller from '../classes/Controller.js'
 
 class Main extends Phaser.State {
 
@@ -17,6 +18,8 @@ class Main extends Phaser.State {
 
 		this.player = new Player (this)
 
+		this.controller = new Controller (this, [Phaser.KeyCode.T], [function () {console.log("pressed")}])
+
 		//Player controls
 		this.controls = this.input.keyboard.addKeys (
 			{
@@ -31,16 +34,20 @@ class Main extends Phaser.State {
 
 	update () {
 
-		if (this.controls.up.isDown) { this.player.setDir('up') }
-		if (this.controls.down.isDown) { this.player.setDir('down') }
-		if (this.controls.left.isDown) { this.player.setDir('left') }
-		if (this.controls.right.isDown) { this.player.setDir('right') }
+		this.player.updatePos()
+
+		if (this.controls.up.isDown && !this.controls.down.isDown) { this.player.setDir('up') }
+		if (this.controls.down.isDown && !this.controls.up.isDown) { this.player.setDir('down') }
+		if (this.controls.left.isDown && !this.controls.right.isDown) { this.player.setDir('left') }
+		if (this.controls.right.isDown && !this.controls.left.isDown) { this.player.setDir('right') }
 
 		if (this.player.isMoving) {
 			this.player.move()
 		} else {
 			this.player.sprite.animations.stop()
 		}
+
+		this.controller.checkControls()
 	}
 
 	//State transition functions

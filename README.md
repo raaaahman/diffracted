@@ -1,6 +1,7 @@
-#Slime the Room!
+#Colorlision
 
-This game is a remake for the \#RemakeJam from a previous game I made for the Ludum Dare \#47 game jam. It's a HTML5 game that is built on the phraser framework.
+A simplistic puzzle-platformer made for the [Games Made Quick 1 1/2](https://itch.io/jam/games-made-quick-one-and-a-half) game jam.
+
 
 ## Tools
 
@@ -15,6 +16,7 @@ This game is a remake for the \#RemakeJam from a previous game I made for the Lu
 
 - [*level Up your Phaser Games with ES6*](https://www.joshmorony.com/level-up-your-phaser-games-with-es6/) by **Josh Morony**: Tutorial for setting up efficient architecture of phaser games, author provides his [boilerplate](https://github.com/joshuamorony/phaser-es6-boilerplate).
 - [*Phaser Advanced Game Tutorials*](https://www.youtube.com/watch?v=2JWbytEGjhM&list=PL9iYZZWgVwsfNdldSzmYev0tbVKjeov6w) by **WilD**: Series of youtube tutorials about using the phaser framework.
+- [*Phaser + Tiled Tips*](https://www.youtube.com/watch?v=C2_6lhYjkeE) by **Polygonix Games**: A youtube video explaining some little details about using Tiled maps with Phaser
 
 ### Sounds
 

@@ -21,6 +21,7 @@ class Game extends Phaser.Game {
 		this.player
 		this.level
 		this.controls
+		this.controller
 
 		this.state.add('boot', Boot)
 		this.state.add('preloader', Preloader)
