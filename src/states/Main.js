@@ -2,10 +2,13 @@ import GUI from '../classes/GUI.js'
 import Level from '../classes/Level.js'
 import Player from '../classes/Player.js'
 import Controller from '../classes/Controller.js'
+import game from '../index.js'
 
 class Main extends Phaser.State {
 
 	create () {
+
+
 
 		let buttons = [
 			{label: 'Back to menu', fn: this.toMenu },
@@ -16,11 +19,17 @@ class Main extends Phaser.State {
 
 		this.level = new Level (this, 'simple-room', 'tileset')
 
+		this.physics.startSystem(Phaser.Physics.ARCADE)
+		this.physics.arcade.gravity.y = 1400
+
 		this.player = new Player (this)
 
-		this.controller = new Controller (this, [Phaser.KeyCode.T], [function () {console.log("pressed")}])
+		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D],
+			[{callback: this.player.move, param: 'left'},
+			{callback: this.player.move, param: 'right'}]
+		)
 
-		//Player controls
+		/*Player controls
 		this.controls = this.input.keyboard.addKeys (
 			{
 				'up': Phaser.KeyCode.Z,
@@ -28,13 +37,31 @@ class Main extends Phaser.State {
 				'left': Phaser.KeyCode.Q,
 				'right': Phaser.KeyCode.D
 			}
-		)
+		)*/
+		/*
+		console.log(this.level.map instanceof Phaser.Tilemap)
+		console.log(this.player.sprite instanceof Phaser.Sprite)
+		console.log(this.level.walls instanceof Phaser.TilemapLayer)
+		*/
 
 	}
 
 	update () {
 
-		this.player.updatePos()
+	/*	let tileAt = this.level.map.getTile(
+			Math.floor(this.player.sprite.body.x / 32),
+			Math.floor(this.player.sprite.body.y / 32),
+			1
+		)
+		if (tileAt) {
+			console.log(tileAt.index)
+		}*/
+
+		this.physics.arcade.collide(this.player.sprite, this.level.walls)
+
+		this.player.stop()
+
+		/*this.player.updatePos()
 
 		if (this.controls.up.isDown && !this.controls.down.isDown) { this.player.setDir('up') }
 		if (this.controls.down.isDown && !this.controls.up.isDown) { this.player.setDir('down') }
@@ -45,9 +72,13 @@ class Main extends Phaser.State {
 			this.player.move()
 		} else {
 			this.player.sprite.animations.stop()
-		}
+		}*/
 
 		this.controller.checkControls()
+	}
+
+	render () {
+		//game.debug.bodyInfo(this.player.sprite, 5, 20)
 	}
 
 	//State transition functions

@@ -14,7 +14,7 @@ class Controller {
 	checkControls () {
 		for (let i = 0; i < this.controls.length; i++) {
 			if (this.game.input.keyboard.isDown(this.controls[i].key)) {
-				this.controls[i].action()
+				this.controls[i].action.callback(this.controls[i].action.param)
 			}
 		}
 	}

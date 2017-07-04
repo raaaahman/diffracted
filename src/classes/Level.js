@@ -15,6 +15,9 @@ class Level {
 		this.floor = this.map.createLayer('floor')
 		this.walls = this.map.createLayer('walls')
 
+		this.floor.resizeWorld()
+		this.map.setCollisionBetween(1, 15, true, this.walls)
+
 	}
 
 }
