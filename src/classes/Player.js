@@ -13,6 +13,7 @@ class Player {
 
 		//Define player stats
 		this.speed = 150
+		this.lastJump = 0
 
 		//Player Sprite
 		this.sprite = game.add.sprite( playerX, playerY, spritesheet)
@@ -42,8 +43,12 @@ class Player {
 	}
 
 	jump () {
-		if (this.sprite.body.onFloor) {
+		console.log(this.sprite.body.onFloor())
+		console.log(this.lastJump)
+		console.log(this.game.time)
+		if (this.sprite.body.onFloor() && this.lastJump + 100 < this.game.time.time) {
 			this.sprite.body.velocity.y = -600
+			this.lastJump = this.game.time.time
 		}
 	}
 
