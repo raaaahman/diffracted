@@ -24,9 +24,10 @@ class Main extends Phaser.State {
 
 		this.player = new Player (this)
 
-		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D],
-			[{callback: this.player.move, param: 'left'},
-			{callback: this.player.move, param: 'right'}]
+		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
+			[{entities: [this.player], function:'move', params:'left'},
+			{entities: [this.player], function:'move', params:'right'},
+			{entities: [this.player], function:'jump', params: ''}]
 		)
 
 		/*Player controls
@@ -75,6 +76,8 @@ class Main extends Phaser.State {
 		}*/
 
 		this.controller.checkControls()
+
+		this.player.update()
 	}
 
 	render () {
