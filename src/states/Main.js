@@ -8,8 +8,6 @@ class Main extends Phaser.State {
 
 	create () {
 
-
-
 		let buttons = [
 			{label: 'Back to menu', fn: this.toMenu },
 			{label: 'Restart Level', fn: this.reset, sound: 'reset'}
@@ -17,12 +15,12 @@ class Main extends Phaser.State {
 
 		this.gui = new GUI (this, 0, this.world.height - 45, buttons, 90, 25, 370, 20, 10, 'horizontal', {font: '12px Arial', fill:'#fff'}, 'click' )
 
-		this.level = new Level (this, 'simple-room', 'tileset')
+		this.level = new Level (this, 'colors', 'tileset')
 
 		this.physics.startSystem(Phaser.Physics.ARCADE)
 		this.physics.arcade.gravity.y = 1400
 
-		this.player = new Player (this)
+		this.player = new Player (this, 320, 245, 'blue')
 
 		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
 			[{entities: [this.player], function:'move', params:'left'},
@@ -57,8 +55,16 @@ class Main extends Phaser.State {
 		if (tileAt) {
 			console.log(tileAt.index)
 		}*/
+		/*if (this.player.color !== 'white') {
+			this.physics.arcade.collide(this.player.spite, this.level[this.player.color])
+		}*/
+		let collideWith = [this.level.white]
 
-		this.physics.arcade.collide(this.player.sprite, this.level.walls)
+		if (this.player.color != 'white') {
+			collideWith[1] = this.level[this.player.color]
+		}
+
+		this.physics.arcade.collide(this.player.sprite, collideWith)
 
 		this.player.stop()
 
@@ -74,10 +80,21 @@ class Main extends Phaser.State {
 		} else {
 			this.player.sprite.animations.stop()
 		}*/
+		if(this.player.sprite.body.x > this.level.map.widthInPixels) {
+			this.player.sprite.body.x = 1
+		} else if (this.player.sprite.body.x < 0) {
+			this.player.sprite.body.x = this.level.map.widthInPixels - 33
+		}
+
+		if(this.player.sprite.body.y > this.level.map.heightInPixels) {
+			this.player.sprite.body.y = 1
+		} else if (this.player.sprite.body.y < 0) {
+			this.player.sprite.body.y = this.level.map.heightInPixels - 65
+		}
 
 		this.controller.checkControls()
 
-		this.player.update()
+		//this.player.update()
 	}
 
 	render () {

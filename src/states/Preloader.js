@@ -21,10 +21,13 @@ class Preloader extends Phaser.State {
 		//GAME sprites and tilesets
 		this.load.image('tileset', '/assets/img/tileset.png')
 
-		this.load.spritesheet('player', '/assets/img/player.png', 32, 32)
+		this.load.spritesheet('player-white', '/assets/img/player-white.png', 32, 64)
+		this.load.spritesheet('player-red', '/assets/img/player-red.png', 32, 64)
+		this.load.spritesheet('player-green', '/assets/img/player-green.png', 32, 64)
+		this.load.spritesheet('player-blue', '/assets/img/player-blue.png', 32, 64)
 
 		//GAME data
-		this.load.tilemap('map', '/assets/levels/level0.json', null, Phaser.Tilemap.TILED_JSON)
+		this.load.tilemap('map', '/assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON)
 
 	}
 
