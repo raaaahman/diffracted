@@ -77,7 +77,28 @@ class Player {
 		this.sprite.body.velocity.x = 0
 	}
 
-	update () {
+	unite (sprite) {
+		sprite.data.unite = true
+
+		for (let i = 1; i < this.players.length; i++) {
+			if (this.players[i].sprite.data.unite !== true) {
+				return false
+			}
+		}
+
+		console.log(sprite.body.x, sprite.body.y)
+
+		this.players[0].sprite.reset(sprite.x, sprite.y)
+		/*this.players[0].sprite.body.x = 100
+		this.players[0].sprite.body.y = 50
+		console.log(this.players[0].sprite.body.x, this.players[0].sprite.body.y)*/
+
+		for (let i = 1; i < this.players.length; i++) {
+			this.players[i].sprite.kill()
+		}
+	}
+
+	/*update () {
 		if (this.sprite.body.velocity.x === 0) {
 			this.sprite.animations.stop()
 		}
@@ -108,7 +129,7 @@ class Player {
 
 		//Keeps the current velocity
 		sprite.body.velocity = curVelocity
-	}
+	}*/
 
 
 }

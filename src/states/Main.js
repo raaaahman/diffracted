@@ -20,85 +20,84 @@ class Main extends Phaser.State {
 		this.physics.startSystem(Phaser.Physics.ARCADE)
 		this.physics.arcade.gravity.y = 1400
 
-		this.player = new Player (this, 320, 245, 'blue')
+		this.players = [
+			new Player (this, 300, 245, 'white'),
+			new Player (this, 320, 245, 'blue'),
+			new Player (this, 380, 245, 'green'),
+			new Player (this, 240, 245,  'red')
+		]
+
+		this.players[0].sprite.kill()
 
 		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
-			[{entities: [this.player], function:'move', params:'left'},
-			{entities: [this.player], function:'move', params:'right'},
-			{entities: [this.player], function:'jump', params: ''}]
+			[{entities: this.players, function:'move', params:'left'},
+			{entities: this.players, function:'move', params:'right'},
+			{entities: this.players, function:'jump', params: ''}]
 		)
-
-		/*Player controls
-		this.controls = this.input.keyboard.addKeys (
-			{
-				'up': Phaser.KeyCode.Z,
-				'down': Phaser.KeyCode.S,
-				'left': Phaser.KeyCode.Q,
-				'right': Phaser.KeyCode.D
-			}
-		)*/
-		/*
-		console.log(this.level.map instanceof Phaser.Tilemap)
-		console.log(this.player.sprite instanceof Phaser.Sprite)
-		console.log(this.level.walls instanceof Phaser.TilemapLayer)
-		*/
 
 	}
 
 	update () {
 
-	/*	let tileAt = this.level.map.getTile(
-			Math.floor(this.player.sprite.body.x / 32),
-			Math.floor(this.player.sprite.body.y / 32),
-			1
-		)
-		if (tileAt) {
-			console.log(tileAt.index)
-		}*/
-		/*if (this.player.color !== 'white') {
-			this.physics.arcade.collide(this.player.spite, this.level[this.player.color])
-		}*/
-		let collideWith = [this.level.white]
+		for (let nb = 0; nb < this.players.length; nb++) {
 
-		if (this.player.color != 'white') {
-			collideWith[1] = this.level[this.player.color]
-		}
+			if (this.players[nb].sprite.exists) {
+				let collideWith = [this.level.white]
+				let overlapAction = {over: [], callback: null }
 
-		this.physics.arcade.collide(this.player.sprite, collideWith)
+				//Set overlap behavior and collisions for players
+				if (this.players[nb].color != 'white') {
+					collideWith[1] = this.level[this.players[nb].color]
+					if (nb === this.players.length - 1) {
+						overlapAction.over = [
+							this.players[nb - 1].sprite,
+							this.players[this.players.length % 3].sprite
+						]
+					} else {
+						overlapAction.over = [
+							this.players[nb - 1].sprite,
+							this.players[nb + 1].sprite
+						]
+					}
+					overlapAction.callback = this.players[nb].unite
+				} else {
+					overlapAction.over = [
+						this.level.blue,
+						this.level.red,
+						this.level.green
+					]
 
-		this.player.stop()
+					overlapAction.callback = this.players[nb].diffract
+				}
 
-		/*this.player.updatePos()
+				this.physics.arcade.overlap(this.players[nb].sprite, overlapAction.over, overlapAction.callback, null, this)
+				this.physics.arcade.collide(this.players[nb].sprite, collideWith)
 
-		if (this.controls.up.isDown && !this.controls.down.isDown) { this.player.setDir('up') }
-		if (this.controls.down.isDown && !this.controls.up.isDown) { this.player.setDir('down') }
-		if (this.controls.left.isDown && !this.controls.right.isDown) { this.player.setDir('left') }
-		if (this.controls.right.isDown && !this.controls.left.isDown) { this.player.setDir('right') }
 
-		if (this.player.isMoving) {
-			this.player.move()
-		} else {
-			this.player.sprite.animations.stop()
-		}*/
-		if(this.player.sprite.body.x > this.level.map.widthInPixels) {
-			this.player.sprite.body.x = 1
-		} else if (this.player.sprite.body.x < 0) {
-			this.player.sprite.body.x = this.level.map.widthInPixels - 33
-		}
+				this.players[nb].stop()
 
-		if(this.player.sprite.body.y > this.level.map.heightInPixels) {
-			this.player.sprite.body.y = 1
-		} else if (this.player.sprite.body.y < 0) {
-			this.player.sprite.body.y = this.level.map.heightInPixels - 65
+				//Teleports player going outside the screen to the other side of the screen
+				if(this.players[nb].sprite.body.x > this.level.map.widthInPixels) {
+					this.players[nb].sprite.body.x = 1
+				} else if (this.players[nb].sprite.body.x < 0) {
+					this.players[nb].sprite.body.x = this.level.map.widthInPixels - 33
+				}
+
+				if(this.players[nb].sprite.body.y > this.level.map.heightInPixels) {
+					this.players[nb].sprite.body.y = 1
+				} else if (this.players[nb].sprite.body.y < 0) {
+					this.players[nb].sprite.body.y = this.level.map.heightInPixels - 65
+				}
+			}
 		}
 
 		this.controller.checkControls()
 
-		//this.player.update()
+		//this.players[i]update()
 	}
 
 	render () {
-		//game.debug.bodyInfo(this.player.sprite, 5, 20)
+		//game.debug.bodyInfo(this.players[i]sprite, 5, 20)
 	}
 
 	//State transition functions
