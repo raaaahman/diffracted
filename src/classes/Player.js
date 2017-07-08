@@ -48,13 +48,6 @@ class Player {
 		this.sprite.body.onWorldBounds = new Phaser.Signal()
 		this.sprite.body.onWorldBounds.add(this.teleport, this, this.sprite.body.velocity)*/
 
-		//Tie an event listener to make the portal open and close
-		if (this.color === 'white') {
-			this.sprite.events.onKilled.add(game.portal.close, game.portal)
-			this.sprite.events.onReset = new Phaser.Signal()
-			this.sprite.events.onReset.add(game.portal.open, game.portal)
-		}
-
 	}
 
 	move (dir) {

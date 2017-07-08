@@ -5,10 +5,11 @@ class Level {
 
 	constructor (
 		game,
+		level,
 		tilesetName,
 		tilesetCacheKey
 	) {
-		this.map = game.add.tilemap('map')
+		this.map = game.add.tilemap(level)
 
 		this.map.addTilesetImage(tilesetName, tilesetCacheKey)
 
@@ -19,6 +20,7 @@ class Level {
 		this.red				= this.map.createLayer('red')
 		this.green 			= this.map.createLayer('green')
 		this.blue				= this.map.createLayer('blue')
+		this.startPos 	= this.map.createLayer('start-pos')
 
 		this.background.resizeWorld()
 

@@ -16,19 +16,30 @@ class Main extends Phaser.State {
 
 		this.gui = new GUI (this, 0, this.world.height - 45, buttons, 90, 25, 370, 20, 10, 'horizontal', {font: '12px Arial', fill:'#fff'}, 'click' )
 
-		this.level = new Level (this, 'colors', 'tileset')
-
 		this.physics.startSystem(Phaser.Physics.ARCADE)
 		this.physics.arcade.gravity.y = 1400
 
-		this.portal = new Portal (this, 480, 224)
+		this.level = new Level (this, 'level' + game.curLevel, 'colors', 'tileset')
+
+		this.players = []
+
+		this.level.map.forEach(
+			this.generate, this, 0, 0, this.level.map.width, this.level.map.height, this.level.startPos
+		)
+
+		//Tie an event listener to make the portal open and close
+		this.players[0].sprite.events.onKilled.add(this.portal.close, this.portal)
+		this.players[0].sprite.events.onReset = new Phaser.Signal()
+		this.players[0].sprite.events.onReset.add(this.portal.open, this.portal)
+
+		/*this.portal = new Portal (this, 480, 224)
 
 		this.players = [
-			new Player (this, 300, 245, 'white')/*,
+			new Player (this, 300, 245, 'white'),
 			new Player (this, 320, 245, 'blue'),
 			new Player (this, 380, 245, 'green'),
-			new Player (this, 240, 245,  'red')*/
-		]
+			new Player (this, 240, 245,  'red')
+		]*/
 
 		//this.players[0].sprite.kill()
 
@@ -101,7 +112,7 @@ class Main extends Phaser.State {
 			player.sprite.data.unite = false
 		})
 
-		console.log(this.physics.arcade.overlap(this.portal.sprite, this.players[0].sprite, this.reset, null, this))
+		this.physics.arcade.overlap(this.portal.sprite, this.players[0].sprite, this.nextLevel, null, this)
 
 		this.controller.checkControls()
 
@@ -109,9 +120,20 @@ class Main extends Phaser.State {
 	}
 
 	render () {
-		//game.debug.bodyInfo(this.players[i]sprite, 5, 20)
-		game.debug.body(this.players[0].sprite)
-		game.debug.body(this.portal.sprite)
+
+	}
+
+	generate (tile) {
+
+		if (tile.index === 6) {
+			this.players[0] = new Player(this, tile.worldX + 16, tile.worldY)
+			tile.destroy()
+		} else if (tile.index === 7) {
+			this.portal = new Portal (this, tile.worldX, tile.worldY - 32)
+			tile.destroy()
+		}
+
+		//tile.destroy()
 	}
 
 	//State transition functions
@@ -120,8 +142,16 @@ class Main extends Phaser.State {
 	}
 
 	reset () {
-		console.log('reset')
 		this.state.start('main')
+	}
+
+	nextLevel() {
+		if (game.curLevel < game.maxLevel) {
+			game.curLevel++
+			this.state.start('main')
+		} else {
+			this.state.start('titleScreen')
+		}
 	}
 }
 

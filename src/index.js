@@ -18,7 +18,9 @@ class Game extends Phaser.Game {
 		super(600, 400, Phaser.AUTO)
 
 		this.gui
-		this.player
+		this.players
+		this.maxLevel = 2
+		this.curLevel
 		this.level
 		this.portal
 		this.controls

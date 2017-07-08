@@ -1,4 +1,5 @@
 import GUI from '../classes/GUI.js'
+import game from '../index.js'
 
 class TitleScreen extends Phaser.State {
 
@@ -9,6 +10,8 @@ class TitleScreen extends Phaser.State {
 		]
 
 		new GUI (this, this.world.centerX - 55, this.world.centerY - 12 , buttons, 90, 25, 10, 10, 10, 'vertical', {	font: '16px Arial',	fill: '#fff' }, 'click' )
+
+		game.curLevel = 1
 	}
 
 	startGame() {

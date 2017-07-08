@@ -1,3 +1,5 @@
+import game from '../index.js'
+
 class Preloader extends Phaser.State {
 
 	preload () {
@@ -28,7 +30,10 @@ class Preloader extends Phaser.State {
 		this.load.spritesheet('portal', '/assets/img/portal.png', 32, 64)
 
 		//GAME data
-		this.load.tilemap('map', '/assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON)
+		console.log(game.maxLevel)
+		for (let i = 1; i <= game.maxLevel; i++) {
+			this.load.tilemap('level' + i, '/assets/levels/level' + i + '.json', null, Phaser.Tilemap.TILED_JSON)
+		}
 
 	}
 
