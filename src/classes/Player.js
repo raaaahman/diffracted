@@ -48,6 +48,13 @@ class Player {
 		this.sprite.body.onWorldBounds = new Phaser.Signal()
 		this.sprite.body.onWorldBounds.add(this.teleport, this, this.sprite.body.velocity)*/
 
+		//Tie an event listener to make the portal open and close
+		if (this.color === 'white') {
+			this.sprite.events.onKilled.add(game.portal.close, game.portal)
+			this.sprite.events.onReset = new Phaser.Signal()
+			this.sprite.events.onReset.add(game.portal.open, game.portal)
+		}
+
 	}
 
 	move (dir) {
@@ -90,9 +97,8 @@ class Player {
 				}
 			}
 
-			console.log(sprite1.body.x, sprite1.body.y)
-
 			this.players[0].sprite.reset(sprite1.x, sprite1.y)
+			this.players[0].sprite.events.onReset.dispatch()
 			/*this.players[0].sprite.body.x = 100
 			this.players[0].sprite.body.y = 50
 			console.log(this.players[0].sprite.body.x, this.players[0].sprite.body.y)*/
@@ -106,7 +112,6 @@ class Player {
 
 	diffract (sprite, tile) {
 		if (tile.index > 0) {
-			console.log("diffracted!")
 			let colors = ['red', 'green', 'blue']
 
 			for (let i = 1; i <= 3; i++) {

@@ -2,6 +2,7 @@ import GUI from '../classes/GUI.js'
 import Level from '../classes/Level.js'
 import Player from '../classes/Player.js'
 import Controller from '../classes/Controller.js'
+import Portal from '../classes/Portal.js'
 import game from '../index.js'
 
 class Main extends Phaser.State {
@@ -20,6 +21,8 @@ class Main extends Phaser.State {
 		this.physics.startSystem(Phaser.Physics.ARCADE)
 		this.physics.arcade.gravity.y = 1400
 
+		this.portal = new Portal (this, 480, 224)
+
 		this.players = [
 			new Player (this, 300, 245, 'white')/*,
 			new Player (this, 320, 245, 'blue'),
@@ -29,6 +32,8 @@ class Main extends Phaser.State {
 
 		//this.players[0].sprite.kill()
 
+
+
 		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
 			[{entities: this.players, function:'move', params:'left'},
 			{entities: this.players, function:'move', params:'right'},
@@ -36,7 +41,6 @@ class Main extends Phaser.State {
 		)
 
 		this.frameCount = 0
-
 	}
 
 	update () {
@@ -97,6 +101,8 @@ class Main extends Phaser.State {
 			player.sprite.data.unite = false
 		})
 
+		console.log(this.physics.arcade.overlap(this.portal.sprite, this.players[0].sprite, this.reset, null, this))
+
 		this.controller.checkControls()
 
 		this.frameCount++
@@ -104,6 +110,8 @@ class Main extends Phaser.State {
 
 	render () {
 		//game.debug.bodyInfo(this.players[i]sprite, 5, 20)
+		game.debug.body(this.players[0].sprite)
+		game.debug.body(this.portal.sprite)
 	}
 
 	//State transition functions
@@ -112,6 +120,7 @@ class Main extends Phaser.State {
 	}
 
 	reset () {
+		console.log('reset')
 		this.state.start('main')
 	}
 }

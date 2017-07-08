@@ -25,6 +25,7 @@ class Preloader extends Phaser.State {
 		this.load.spritesheet('player-red', '/assets/img/player-red.png', 32, 64)
 		this.load.spritesheet('player-green', '/assets/img/player-green.png', 32, 64)
 		this.load.spritesheet('player-blue', '/assets/img/player-blue.png', 32, 64)
+		this.load.spritesheet('portal', '/assets/img/portal.png', 32, 64)
 
 		//GAME data
 		this.load.tilemap('map', '/assets/levels/level1.json', null, Phaser.Tilemap.TILED_JSON)

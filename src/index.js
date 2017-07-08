@@ -20,6 +20,7 @@ class Game extends Phaser.Game {
 		this.gui
 		this.player
 		this.level
+		this.portal
 		this.controls
 		this.controller
 		this.frameCount
