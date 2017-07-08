@@ -22,6 +22,7 @@ class Game extends Phaser.Game {
 		this.level
 		this.controls
 		this.controller
+		this.frameCount
 
 		this.state.add('boot', Boot)
 		this.state.add('preloader', Preloader)

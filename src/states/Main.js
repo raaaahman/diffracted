@@ -21,19 +21,21 @@ class Main extends Phaser.State {
 		this.physics.arcade.gravity.y = 1400
 
 		this.players = [
-			new Player (this, 300, 245, 'white'),
+			new Player (this, 300, 245, 'white')/*,
 			new Player (this, 320, 245, 'blue'),
 			new Player (this, 380, 245, 'green'),
-			new Player (this, 240, 245,  'red')
+			new Player (this, 240, 245,  'red')*/
 		]
 
-		this.players[0].sprite.kill()
+		//this.players[0].sprite.kill()
 
 		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
 			[{entities: this.players, function:'move', params:'left'},
 			{entities: this.players, function:'move', params:'right'},
 			{entities: this.players, function:'jump', params: ''}]
 		)
+
+		this.frameCount = 0
 
 	}
 
@@ -73,7 +75,6 @@ class Main extends Phaser.State {
 				this.physics.arcade.overlap(this.players[nb].sprite, overlapAction.over, overlapAction.callback, null, this)
 				this.physics.arcade.collide(this.players[nb].sprite, collideWith)
 
-
 				this.players[nb].stop()
 
 				//Teleports player going outside the screen to the other side of the screen
@@ -91,9 +92,14 @@ class Main extends Phaser.State {
 			}
 		}
 
+		//resets player unification controller
+		this.players.forEach(function (player) {
+			player.sprite.data.unite = false
+		})
+
 		this.controller.checkControls()
 
-		//this.players[i]update()
+		this.frameCount++
 	}
 
 	render () {

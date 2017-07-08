@@ -14,6 +14,7 @@ class Player {
 		//Define player stats
 		this.speed = 150
 		this.lastJump = 0
+		this.lastDiffraction = 0
 		this.color = color
 
 		/*switch (color) {
@@ -77,24 +78,50 @@ class Player {
 		this.sprite.body.velocity.x = 0
 	}
 
-	unite (sprite) {
-		sprite.data.unite = true
+	unite (sprite1, sprite2) {
+		if (this.players[0].lastDiffraction + 30 < this.frameCount &&
+		Math.abs(sprite1.x - sprite2.x) <= 24 && Math.abs(sprite1.y - sprite2.y) <= 24) {
 
-		for (let i = 1; i < this.players.length; i++) {
-			if (this.players[i].sprite.data.unite !== true) {
-				return false
+			sprite1.data.unite = true
+
+			for (let i = 1; i < this.players.length; i++) {
+				if (this.players[i].sprite.data.unite !== true) {
+					return false
+				}
 			}
+
+			console.log(sprite1.body.x, sprite1.body.y)
+
+			this.players[0].sprite.reset(sprite1.x, sprite1.y)
+			/*this.players[0].sprite.body.x = 100
+			this.players[0].sprite.body.y = 50
+			console.log(this.players[0].sprite.body.x, this.players[0].sprite.body.y)*/
+
+			for (let i = 1; i < this.players.length; i++) {
+				this.players[i].sprite.kill()
+			}
+
 		}
+	}
 
-		console.log(sprite.body.x, sprite.body.y)
+	diffract (sprite, tile) {
+		if (tile.index > 0) {
+			console.log("diffracted!")
+			let colors = ['red', 'green', 'blue']
 
-		this.players[0].sprite.reset(sprite.x, sprite.y)
-		/*this.players[0].sprite.body.x = 100
-		this.players[0].sprite.body.y = 50
-		console.log(this.players[0].sprite.body.x, this.players[0].sprite.body.y)*/
+			for (let i = 1; i <= 3; i++) {
+				if (i < this.players.length) {
+						this.players[i].sprite.reset(sprite.x, sprite.y)
+						this.players[i].sprite.data.unite = false
 
-		for (let i = 1; i < this.players.length; i++) {
-			this.players[i].sprite.kill()
+				} else {
+						this.players.push(new Player(this, sprite.x, sprite.y, colors[i - 1]))
+				}
+				this.players[i].sprite.body.velocity.y = sprite.body.velocity.y
+			}
+
+			this.players[0].lastDiffraction = this.frameCount
+			sprite.kill()
 		}
 	}
 
