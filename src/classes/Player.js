@@ -65,13 +65,16 @@ class Player {
 	}
 
 	jump () {
-		/*console.log(this.sprite.body.onFloor())
-		console.log(this.lastJump)
-		console.log(this.game.time)*/
-		if (this.sprite.body.onFloor() && this.lastJump + 100 < this.game.time.time) {
+		/*console.log(this.sprite.body.onFloor())*/
+
+		if (this.sprite.body.onFloor() && this.lastJump + 300 < this.game.time.time) {
+			console.log(this.lastJump)
+			console.log(this.game.time.time)
 			this.sprite.body.velocity.y = -900
 			this.lastJump = this.game.time.time
+			this.game.sound.play('jump')
 		}
+
 	}
 
 	stop () {

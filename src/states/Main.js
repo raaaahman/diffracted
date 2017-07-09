@@ -14,7 +14,7 @@ class Main extends Phaser.State {
 			{label: 'Restart Level', fn: this.reset, sound: 'reset'}
 		]
 
-		this.gui = new GUI (this, 0, this.world.height - 45, buttons, 90, 25, 370, 20, 10, 'horizontal', {font: '12px Arial', fill:'#fff'}, 'click' )
+		this.gui = new GUI (this, 0, this.stage.height - 45, buttons, 90, 25, 350, 20, 10, 'horizontal', {font: '12px Arial', fill:'#fff'}, 'click' )
 
 		this.physics.startSystem(Phaser.Physics.ARCADE)
 		this.physics.arcade.gravity.y = 1400
@@ -26,6 +26,8 @@ class Main extends Phaser.State {
 		this.level.map.forEach(
 			this.generate, this, 0, 0, this.level.map.width, this.level.map.height, this.level.startPos
 		)
+
+		this.level.map.replace(6, -1, 0, 0, 18, 10, 'start-pos')
 
 		//Tie an event listener to make the portal open and close
 		this.players[0].sprite.events.onKilled.add(this.portal.close, this.portal)
@@ -42,8 +44,6 @@ class Main extends Phaser.State {
 		]*/
 
 		//this.players[0].sprite.kill()
-
-
 
 		this.controller = new Controller (this, [Phaser.KeyCode.Q, Phaser.KeyCode.D, Phaser.KeyCode.Z],
 			[{entities: this.players, function:'move', params:'left'},
@@ -126,11 +126,13 @@ class Main extends Phaser.State {
 	generate (tile) {
 
 		if (tile.index === 6) {
+
 			this.players[0] = new Player(this, tile.worldX + 16, tile.worldY)
-			tile.destroy()
+			//this.level.map.removeTile(tile.x, tile.y, this.level.startPos)
 		} else if (tile.index === 7) {
+
 			this.portal = new Portal (this, tile.worldX, tile.worldY - 32)
-			tile.destroy()
+			//this.level.map.removeTile(tile.x, tile.y, this.level.startPos)
 		}
 
 		//tile.destroy()
@@ -146,11 +148,12 @@ class Main extends Phaser.State {
 	}
 
 	nextLevel() {
+		this.sound.play('portal')
 		if (game.curLevel < game.maxLevel) {
 			game.curLevel++
 			this.state.start('main')
 		} else {
-			this.state.start('titleScreen')
+			this.state.start('gameOver')
 		}
 	}
 }

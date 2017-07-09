@@ -14,7 +14,7 @@ class GUI {
 		offsetX = 10,
 		offsetY = 10,
 		display = 'horizontal',
-		UIstyle = {	font: '16px Arial',	fill: '#fff' },
+		UIstyle = {	font: '12px Arial',	fill: '#fff' },
 		defaultSound
 	) {
 

@@ -9,7 +9,7 @@ class Preloader extends Phaser.State {
 
 		this.preloader.anchor.setTo(0.5, 0.5)
 
-		this.stage.setBackgroundColor('#458')
+		this.stage.setBackgroundColor('#221634')
 
 		this.load.setPreloadSprite(this.preloader)
 
@@ -28,6 +28,10 @@ class Preloader extends Phaser.State {
 		this.load.spritesheet('player-green', '/assets/img/player-green.png', 32, 64)
 		this.load.spritesheet('player-blue', '/assets/img/player-blue.png', 32, 64)
 		this.load.spritesheet('portal', '/assets/img/portal.png', 32, 64)
+
+		//GAME sounds
+		this.load.audio('jump', '/assets/sounds/pop.ogg')
+		this.load.audio('portal', '/assets/sounds/portal.ogg')
 
 		//GAME data
 		console.log(game.maxLevel)

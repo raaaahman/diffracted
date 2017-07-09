@@ -20,12 +20,8 @@ A simplistic puzzle-platformer made for the [Games Made Quick 1 1/2](https://itc
 
 ### Sounds
 
-- [*Successful*](http://freesound.org/people/Kastenfrosch/sounds/162473/) by **Kastenfroch** on Freesound.org
-- [*Droplet Bad*](http://freesound.org/people/willy_ineedthatapp_com/sounds/167328/) by **Willy_ineedthatapp** on Freesound.org
-- [*Buble Pop*](http://freesound.org/people/elmasmalo1/sounds/376968/) by **elmasmalo1** on Freesound.org
-- [*Blob*](http://freesound.org/people/cusconauta/sounds/219012/) by **Cusconauta** on Freesound.org
-- [*Game Over 02*](http://freesound.org/people/notchfilter/sounds/43697/) by **notchfilter** on Freesound.org
 - [*Interface Sounds Starter Pack*](https://opengameart.org/content/interface-sounds-starter-pack) by **p0ss** on opengameart.org
-
+- [*Bubbles 'Pop'*](https://opengameart.org/content/bubbles-pop) by **farfadet46** on opengameart.org
+- [*Portal*](https://opengameart.org/content/portal-sound) by **IgnasD** on opengameart.org
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)

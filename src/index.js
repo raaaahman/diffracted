@@ -15,17 +15,19 @@ class Game extends Phaser.Game {
 
 	constructor () {
 
-		super(600, 400, Phaser.AUTO)
+		super(576, 400, Phaser.AUTO)
 
 		this.gui
 		this.players
-		this.maxLevel = 2
+		this.maxLevel = 5
 		this.curLevel
 		this.level
 		this.portal
 		this.controls
 		this.controller
 		this.frameCount
+
+
 
 		this.state.add('boot', Boot)
 		this.state.add('preloader', Preloader)
